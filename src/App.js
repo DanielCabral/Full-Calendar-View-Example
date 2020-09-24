@@ -3,9 +3,9 @@ import FullCalendar, { formatDate } from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import timeGridPlugin from '@fullcalendar/timegrid'
 import interactionPlugin from '@fullcalendar/interaction'
+import moment from 'moment'
+
 import { INITIAL_EVENTS, createEventId } from './event-utils'
-
-
 
 export default class App extends React.Component {
   calendarComponentRef = React.createRef();
@@ -22,6 +22,21 @@ export default class App extends React.Component {
               right: 'dayGridMonth,timeGridWeek,timeGridDay'
             }}
             initialView='timeGridWeek'
+            nowIndicator={true}
+            now = {moment().format("YYYY-MM-DDTHH:mm:ss[Z]")}            
+            allDayContent={false}
+            timeFormat={'H(:mm)'}
+            /*slotLabelFormat= {[
+              { month: 'long', year: 'numeric' }, // top level of text
+              { weekday: 'short' } // lower level of text
+            ]}*/
+            eventTimeFormat= {{ // like '14:30:00'
+              hour: '2-digit',
+              minute: '2-digit',
+              second: '2-digit',
+              hour12:true    
+            }}
+            firstHour= {7}
             buttonText={{
               today:    'Hoje',
               month:    'Mensal',
@@ -34,6 +49,15 @@ export default class App extends React.Component {
                 titleFormat: { year: 'string', month: '4-digit', day: '4-digit' }
                 // other view-specific options here
               }
+            }
+          ]}
+          timeZone= 'UTC'
+          events= {[
+            {
+              id: 'a',
+              title: 'my event',
+              start: '2020-09-23T00:00:00.000Z',
+              end: '2020-09-23T12:30:00.000Z',
             }
           ]}
             editable={true}
