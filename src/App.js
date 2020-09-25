@@ -1,4 +1,6 @@
 import React, {useState} from 'react';
+import Calendar from 'react-calendar';
+import 'react-calendar/dist/Calendar.css';
 import FullCalendar, { formatDate } from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import timeGridPlugin from '@fullcalendar/timegrid'
@@ -19,17 +21,21 @@ export default class App extends React.Component {
             headerToolbar={{
               left: 'prev,next',
               center: 'title',
-              right: 'dayGridMonth,timeGridWeek,timeGridDay'
+              right: 'timeGridDay,timeGridWeek,dayGridMonth'
             }}
             initialView='timeGridWeek'
             nowIndicator={true}
             now = {moment().format("YYYY-MM-DDTHH:mm:ss[Z]")}            
-            allDayContent={false}
+            allDaySlot={false}
             timeFormat={'H(:mm)'}
-            /*slotLabelFormat= {[
-              { month: 'long', year: 'numeric' }, // top level of text
-              { weekday: 'short' } // lower level of text
-            ]}*/
+            slotLabelFormat= {[
+             { hour: 'numeric',
+             minute: '2-digit',
+             omitZeroMinute: false,}
+            ]}
+            slotMinTime='06:00'
+            slotMaxTime='18:00'
+            contentHeight={600}
             eventTimeFormat= {{ // like '14:30:00'
               hour: '2-digit',
               minute: '2-digit',
@@ -46,8 +52,17 @@ export default class App extends React.Component {
             views = {[
               {
                 timeGridDay: { // name of view
-                titleFormat: { year: 'string', month: '4-digit', day: '4-digit' }
+                titleFormat: { year: 'string', month: '4-digit', day: '4-digit' },
                 // other view-specific options here
+                timelineThreeDays: {
+                  type: 'timeline',
+                  slotLabelFormat: [
+                  'ddd D/M',
+                  'H:mm'
+                  ],
+                  columnFormat: 'ddd D.M',
+                  duration: { days: 3 }
+              }    
               }
             }
           ]}
@@ -77,6 +92,9 @@ export default class App extends React.Component {
             eventRemove={function(){}}
             */
           />
+          <Calendar
+        
+      />
     </div>
   );
 }
