@@ -1,7 +1,7 @@
-import React, {useState} from 'react';
+import React from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
-import FullCalendar, { formatDate } from '@fullcalendar/react'
+import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import timeGridPlugin from '@fullcalendar/timegrid'
 import interactionPlugin from '@fullcalendar/interaction'
@@ -29,9 +29,11 @@ export default class App extends React.Component {
             allDaySlot={false}
             timeFormat={'H(:mm)'}
             slotLabelFormat= {[
-             { hour: 'numeric',
+             { 
+             hour: 'numeric',
              minute: '2-digit',
-             omitZeroMinute: false,}
+             omitZeroMinute: false,
+            }
             ]}
             slotMinTime='06:00'
             slotMaxTime='18:00'
